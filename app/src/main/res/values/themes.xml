@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.App_Companion_Miquel_Julia" parent="Theme.AppCompat.DayNight.NoActionBar"> </style>
+    <style name="Theme.App_Companion_Miquel_Julia" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/darkBlue</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="android:statusBarColor">@color/grey</item>
+    </style>
+
+    <style name="Theme.BottomNavigation" parent="Theme.App_Companion_Miquel_Julia"/>
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/red</item>
+    </style>
+
 </resources>
