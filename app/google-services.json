@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "843695849584",
+    "project_id": "aa3-1-app-companion",
+    "storage_bucket": "aa3-1-app-companion.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843695849584:android:da8a6e36680274b85774b5",
+        "android_client_info": {
+          "package_name": "com.example.app_companion_miquel_julia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClCUWHlWkOduoz8Zd6bYzO4EUwLyuyIGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
