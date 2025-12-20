@@ -4,16 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginScreenActivity : AppCompatActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var auth: FirebaseAuth
+
+    private lateinit var emailField: EditText
+    private lateinit var passwordField: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +33,16 @@ class LoginScreenActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        findViewById<SignInButton>(R.id.login).setOnClickListener{ SignIn() }
+        emailField = findViewById(R.id.user)
+        passwordField = findViewById(R.id.password)
+
+        auth = FirebaseAuth.getInstance()
+
+        findViewById<SignInButton>(R.id.googleLogin).setOnClickListener{ SignIn() }
         findViewById<View>(R.id.logout).setOnClickListener{ SignOut() }
+
+        findViewById<View>(R.id.login).setOnClickListener{ Login() }
+        findViewById<View>(R.id.register).setOnClickListener{ Register() }
     }
 
     private fun SignIn(){
@@ -41,6 +56,37 @@ class LoginScreenActivity : AppCompatActivity() {
 
     private fun SignOut(){
         googleSignInClient.signOut()
+        auth.signOut()
+    }
+
+    private fun Register(){
+        val email = emailField.text.toString()
+        val password = passwordField.text.toString()
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task->
+                if(task.isSuccessful){
+                    Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this, "Error en el registro: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun Login(){
+        val email = emailField.text.toString()
+        val password = passwordField.text.toString()
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task->
+                if(task.isSuccessful){
+                    val user = auth.currentUser
+                    val userid = user?.uid
+                    Toast.makeText(this, "Inicio de sesión exitoso. ID: " + userid, Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this, "Error en el inicio de sesión: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
