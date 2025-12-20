@@ -24,6 +24,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+        <activity
+            android:name=".LoginScreenActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
