@@ -2,6 +2,8 @@
     <string name="app_name">App_Companion_Miquel_Julia</string>
     <string name="valorant_api">Valorant API</string>
     <string name="tap_to_continue">Tap to Continue</string>
+    <string name="login">Login with Google</string>
+    <string name="logout">Logout</string>
     <string name="news">News</string>
     <string name="agents">Agents</string>
     <string name="maps">Maps</string>
