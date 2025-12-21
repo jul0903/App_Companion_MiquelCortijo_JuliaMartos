@@ -1,4 +1,4 @@
-package com.example.app_companion_miquel_julia
+package com.example.app_companion_miquel_julia.ApiFiles
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

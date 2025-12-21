@@ -6,8 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app_companion_miquel_julia.Adapters.AgentsAdapter
+import com.example.app_companion_miquel_julia.ApiFiles.ValorantApiInstance
+import com.example.app_companion_miquel_julia.ApiFiles.ValorantResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,7 +19,8 @@ import retrofit2.Response
 class AgentsFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter:AgentsAdapter
+    private lateinit var adapter: AgentsAdapter
+    private lateinit var searchView: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +67,31 @@ class AgentsFragment : Fragment() {
         })
     }
 
+    private fun searchAgents(view: View){
+        searchView = view.findViewById(R.id.agentsSearchView)
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if(query != null){
+                    adapter.searchAgent(query)
+                } else {
+                    adapter.searchAgent("")
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(newText != null){
+                    adapter.searchAgent(newText)
+                } else {
+                    adapter.searchAgent("")
+                }
+                return true
+            }
+
+        })
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -70,5 +100,8 @@ class AgentsFragment : Fragment() {
 
         //Llamo a la api
         loadData()
+
+        //Barra de buscar
+        searchAgents(view)
     }
 }

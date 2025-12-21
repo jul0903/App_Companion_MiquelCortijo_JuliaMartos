@@ -16,10 +16,24 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../Android/icons/material/materialicons/assignment_ind/baseline_assignment_ind_24.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_settings" />
+                            <entry key="outputName" value="agent_placeholder" />
                             <entry key="sourceFile" value="D:\ENTI\5\Android\App_Companion_MiquelCortijo_JuliaMartos\app\src\main\res\drawable\ic_settings.svg" />
                           </map>
                         </option>

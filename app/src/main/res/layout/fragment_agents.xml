@@ -19,12 +19,13 @@
         android:textColor="@color/darkBlue"
         android:textSize="80sp" />
 
-
     <SearchView
         android:id="@+id/agentsSearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightBlue" />
+        android:background="@color/lightBlue"
+        android:queryHint="@string/search_agent_by_name"
+        android:queryBackground="@color/transparent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/agentsRecyclerView"

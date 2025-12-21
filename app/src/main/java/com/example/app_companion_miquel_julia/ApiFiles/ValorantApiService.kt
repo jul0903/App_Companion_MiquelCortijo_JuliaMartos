@@ -1,4 +1,4 @@
-package com.example.app_companion_miquel_julia
+package com.example.app_companion_miquel_julia.ApiFiles
 
 import retrofit2.Call
 import retrofit2.http.GET
