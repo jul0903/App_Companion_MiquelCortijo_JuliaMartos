@@ -21,6 +21,12 @@
         app:showAsAction="ifRoom|withText" />
 
     <item
+        android:id="@+id/acts"
+        android:icon="@drawable/ic_news"
+        android:title="@string/settings"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings"
         android:title="@string/settings"

@@ -1,7 +1,8 @@
 package com.example.app_companion_miquel_julia.ApiFiles
 
 data class ValorantResponse(
-    val characters: List<ValorantCharacter>
+    val characters: List<ValorantCharacter>,
+    val acts: List<ValorantAct>
 )
 
 data class ValorantCharacter(
@@ -11,6 +12,7 @@ data class ValorantCharacter(
 )
 
 data class ValorantAct(
+    val id: String,
     val name:String,
     val type:String,
     val isActive:Boolean

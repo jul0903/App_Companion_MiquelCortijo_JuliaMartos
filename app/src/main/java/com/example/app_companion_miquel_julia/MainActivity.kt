@@ -4,10 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import android.util.Log
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +40,11 @@ class MainActivity : AppCompatActivity() {
 
             R.id.maps -> {
                 loadFragment(MapsFragment())
+                true
+            }
+
+            R.id.acts -> {
+                loadFragment(ActsFragment())
                 true
             }
 

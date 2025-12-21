@@ -5,29 +5,29 @@
     android:layout_height="match_parent"
     android:background="@color/darkBlue"
     android:orientation="vertical"
-    tools:context=".AgentsFragment">
+    tools:context=".ActsFragment">
 
     <TextView
-        android:id="@+id/agentsTitle"
+        android:id="@+id/actsTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lightBlue"
         android:fontFamily="@font/anton"
         android:gravity="center"
-        android:text="@string/agents"
+        android:text="@string/acts"
         android:textColor="@color/darkBlue"
         android:textSize="80sp" />
 
     <SearchView
-        android:id="@+id/agentsSearchView"
+        android:id="@+id/actsSearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lightBlue"
-        android:queryHint="@string/search_agent_by_name"
+        android:queryHint="@string/search_by_act_episode_or_name"
         android:queryBackground="@color/transparent"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/agentsRecyclerView"
+        android:id="@+id/actsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
