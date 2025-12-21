@@ -1,10 +1,13 @@
 package com.example.app_companion_miquel_julia
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.util.Log
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         myNavBar.setOnItemSelectedListener { item -> handleNavigationItemSelected(item.itemId) }
 
-        if(supportFragmentManager.findFragmentById(R.id.fragment) == null){
+        if (supportFragmentManager.findFragmentById(R.id.fragment) == null) {
             loadFragment(NewsFragment())
         }
     }
@@ -28,50 +31,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleNavigationItemSelected(itemId: Int): Boolean {
-        return when (itemId){
+        return when (itemId) {
             R.id.news -> {
                 loadFragment(NewsFragment())
                 true
             }
+
             R.id.agents -> {
                 loadFragment(AgentsFragment())
                 true
             }
+
             R.id.maps -> {
                 loadFragment(MapsFragment())
                 true
             }
+
             R.id.settings -> {
                 loadFragment(SettingsFragment())
                 true
             }
+
             else -> false
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
