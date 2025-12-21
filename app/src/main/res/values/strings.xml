@@ -12,13 +12,11 @@
     <string name="agents">Agents</string>
     <string name="maps">Maps</string>
     <string name="settings">Settings</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_agent_by_name">Search agent by name</string>
     <string name="acts">Acts</string>
     <string name="search_by_act_episode_or_name">Search by act/episode or name</string>
     <string name="back">Back</string>
-    <string name="act_type">Act Type: </string>
-    <string name="is_active">Is Active? </string>
 
 </resources>

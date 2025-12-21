@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App_Companion_Miquel_Julia</string>
+    <string name="valorant_api">Valorant API</string>
+    <string name="tap_to_continue">Toca para Continuar</string>
+    <string name="Google_login">Iniciar sesión con Google</string>
+    <string name="logout">Cerrar Sesión</string>
+    <string name="user">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="register">Registrarse</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="news">Noticias</string>
+    <string name="agents">Agentes</string>
+    <string name="maps">Mapas</string>
+    <string name="settings">Ajustes</string>
+    <string name="hello_blank_fragment">Hola</string>
+    <string name="search_agent_by_name">Buscar agente por nombre</string>
+    <string name="acts">Actos</string>
+    <string name="search_by_act_episode_or_name">Buscar por acto/episodio o nombre</string>
+    <string name="back">Atrás</string>
+</resources>
