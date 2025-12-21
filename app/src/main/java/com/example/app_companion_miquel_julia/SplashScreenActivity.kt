@@ -14,7 +14,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         // Listener: detecta cualquier toque en la pantalla
         splashLayout.setOnClickListener {
-            val intent: Intent = Intent(this, MainActivity::class.java)
+            val intent: Intent = Intent(this, LoginScreenActivity::class.java)
             startActivity(intent)
             finish()
         }

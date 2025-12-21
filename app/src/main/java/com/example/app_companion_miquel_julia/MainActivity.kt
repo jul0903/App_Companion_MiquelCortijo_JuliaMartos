@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         myNavBar.setOnItemSelectedListener { item -> handleNavigationItemSelected(item.itemId) }
 
         if (supportFragmentManager.findFragmentById(R.id.fragment) == null) {
-            loadFragment(NewsFragment())
+            loadFragment(AgentsFragment())
         }
     }
 
@@ -28,11 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleNavigationItemSelected(itemId: Int): Boolean {
         return when (itemId) {
-            R.id.news -> {
-                loadFragment(NewsFragment())
-                true
-            }
-
             R.id.agents -> {
                 loadFragment(AgentsFragment())
                 true
@@ -52,7 +47,6 @@ class MainActivity : AppCompatActivity() {
                 loadFragment(SettingsFragment())
                 true
             }
-
             else -> false
         }
     }

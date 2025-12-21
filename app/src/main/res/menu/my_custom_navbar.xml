@@ -3,12 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/news"
-        android:icon="@drawable/ic_news"
-        android:title="@string/news"
-        app:showAsAction="ifRoom|withText" />
-
-    <item
         android:id="@+id/agents"
         android:icon="@drawable/ic_agents"
         android:title="@string/agents"
