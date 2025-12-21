@@ -72,7 +72,7 @@ class DataBaseScreenActivity : AppCompatActivity() {
                     for(child in fullSnapshot.children){
                         val u = child.child("user").getValue((String::class.java))
                         val m = child.child("message").getValue((String::class.java))
-                        Log.d("FireBase test", "User: $u, Message: $m")
+                        //Log.d("FireBase test", "User: $u, Message: $m")
                     }
                 }.addOnFailureListener{ e ->
                     Log.e("FireBase test", "Error fetching fullcollection: ${e.message}")
