@@ -1,6 +1,8 @@
 package com.example.app_companion_miquel_julia
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
@@ -22,9 +25,17 @@ class LoginScreenActivity : AppCompatActivity() {
     private lateinit var emailField: EditText
     private lateinit var passwordField: EditText
 
+    private lateinit var playerPreferencesUser: SharedPreferences
+    private lateinit var playerPreferencesPassword: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_screen)
+
+        playerPreferencesUser = getSharedPreferences("prefs_user", Context.MODE_PRIVATE)
+        playerPreferencesPassword = getSharedPreferences("prefs_password", Context.MODE_PRIVATE)
+
+        auth = FirebaseAuth.getInstance()
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("843695849584-dghopgbthu58ua4ca5i7mep5keeons6c.apps.googleusercontent.com")
@@ -32,11 +43,29 @@ class LoginScreenActivity : AppCompatActivity() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+        val account = GoogleSignIn.getLastSignedInAccount(this)
+
+        account?.let{
+            Log.d("Login Google", "Ya has robado la info de: " + account.displayName + "anteriormente")
+            SignIn()
+        }?:run{
+            Log.d("Login Google", "No hay sesión iniciada")
+        }
+
 
         emailField = findViewById(R.id.user)
-        passwordField = findViewById(R.id.password)
+        val storedUser = playerPreferencesUser.getString("Resultado", null)
+        if (!storedUser.isNullOrEmpty()) {
+            emailField.setText(storedUser)
+        }
 
-        auth = FirebaseAuth.getInstance()
+        passwordField = findViewById(R.id.password)
+        val storedPassword = playerPreferencesPassword.getString("Resultado", null)
+        if (!storedPassword.isNullOrEmpty()) {
+            passwordField.setText(storedPassword)
+            Login()
+        }
+
 
         findViewById<SignInButton>(R.id.googleLogin).setOnClickListener{ SignIn() }
         findViewById<View>(R.id.logout).setOnClickListener{ SignOut() }
@@ -57,6 +86,8 @@ class LoginScreenActivity : AppCompatActivity() {
     private fun SignOut(){
         googleSignInClient.signOut()
         auth.signOut()
+        playerPreferencesUser.edit().putString("Resultado", null).apply()
+        playerPreferencesPassword.edit().putString("Resultado", null).apply()
     }
 
     private fun Register(){
@@ -83,6 +114,11 @@ class LoginScreenActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     val userid = user?.uid
                     Toast.makeText(this, "Inicio de sesión exitoso. ID: " + userid, Toast.LENGTH_SHORT).show()
+                    playerPreferencesUser.edit().putString("Resultado", email).apply()
+                    playerPreferencesPassword.edit().putString("Resultado", password).apply()
+                    val intent: Intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }else{
                     Toast.makeText(this, "Error en el inicio de sesión: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
