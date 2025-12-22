@@ -18,5 +18,8 @@
     <string name="acts">Acts</string>
     <string name="search_by_act_episode_or_name">Search by act/episode or name</string>
     <string name="back">Back</string>
+    <string name="user_name">Loading username</string>
+    <string name="type">type</string>
+    <string name="comment">comment</string>
 
 </resources>

@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.analytics.FirebaseAnalytics
+
+private lateinit var analytics: FirebaseAnalytics
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        analytics = FirebaseAnalytics.getInstance(this)
 
         myNavBar = findViewById(R.id.navbar)
 
@@ -29,21 +34,25 @@ class MainActivity : AppCompatActivity() {
     private fun handleNavigationItemSelected(itemId: Int): Boolean {
         return when (itemId) {
             R.id.agents -> {
+                analytics.logEvent("agentsPage", null)
                 loadFragment(AgentsFragment())
                 true
             }
 
             R.id.maps -> {
+                analytics.logEvent("mapsPage", null)
                 loadFragment(MapsFragment())
                 true
             }
 
             R.id.acts -> {
+                analytics.logEvent("actsPage", null)
                 loadFragment(ActsFragment())
                 true
             }
 
             R.id.settings -> {
+                analytics.logEvent("settingsPage", null)
                 loadFragment(SettingsFragment())
                 true
             }
