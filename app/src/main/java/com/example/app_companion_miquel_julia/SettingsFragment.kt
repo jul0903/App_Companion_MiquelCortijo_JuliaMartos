@@ -40,10 +40,16 @@ class SettingsFragment : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
+        //Antes:
+        //playerPreferencesUser =
+        //    requireContext().getSharedPreferences("prefs_user", Context.MODE_PRIVATE)
+        //playerPreferencesPassword =
+        //    requireContext().getSharedPreferences("prefs_password", Context.MODE_PRIVATE)
+        //Ahora:
         playerPreferencesUser =
-            requireContext().getSharedPreferences("prefs_user", Context.MODE_PRIVATE)
+            requireContext().getSharedPreferences(Constants.PREFS_USER_FILE, Context.MODE_PRIVATE)
         playerPreferencesPassword =
-            requireContext().getSharedPreferences("prefs_password", Context.MODE_PRIVATE)
+            requireContext().getSharedPreferences(Constants.PREFS_PASSWORD_FILE, Context.MODE_PRIVATE)
 
         userName = view.findViewById(R.id.accountName)
 
@@ -65,8 +71,13 @@ class SettingsFragment : Fragment() {
         auth.signOut()
 
         //Eliminar valores almacenados en user y password
-        playerPreferencesUser.edit().remove("Resultado").apply()
-        playerPreferencesPassword.edit().remove("Resultado").apply()
+
+        //Antes:
+        //playerPreferencesUser.edit().remove("Resultado").apply()
+        //playerPreferencesPassword.edit().remove("Resultado").apply()
+        //Ahora:
+        playerPreferencesUser.edit().remove(Constants.PREFS_RESULT_KEY).apply()
+        playerPreferencesPassword.edit().remove(Constants.PREFS_RESULT_KEY).apply()
 
         val intent = Intent(requireContext(), LoginScreenActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -79,7 +90,11 @@ class SettingsFragment : Fragment() {
         val uid = user?.uid ?: return
 
         val database = FirebaseDatabase.getInstance().reference
-        database.child("users").child(uid).child("username")
+
+        //Antes:
+        //database.child("users").child(uid).child("username")
+        //Ahora:
+        database.child(Constants.NODE_USERS).child(uid).child(Constants.FIELD_USERNAME)
             .get()
             .addOnSuccessListener { snapshot ->
                 val username = snapshot.value as? String

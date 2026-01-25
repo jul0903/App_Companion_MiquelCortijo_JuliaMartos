@@ -38,14 +38,25 @@ class LoginScreenActivity : AppCompatActivity() {
 
         analytics = FirebaseAnalytics.getInstance(this)
 
+
+        //Antes:
         //Variables que almacenarán valores que se guardarán aunque se cierre la app
-        playerPreferencesUser = getSharedPreferences("prefs_user", Context.MODE_PRIVATE)
-        playerPreferencesPassword = getSharedPreferences("prefs_password", Context.MODE_PRIVATE)
+        //playerPreferencesUser = getSharedPreferences("prefs_user", Context.MODE_PRIVATE)
+        //playerPreferencesPassword = getSharedPreferences("prefs_password", Context.MODE_PRIVATE)
+
+        //Ahora:
+        playerPreferencesUser = getSharedPreferences(Constants.PREFS_USER_FILE, Context.MODE_PRIVATE)
+        playerPreferencesPassword = getSharedPreferences(Constants.PREFS_PASSWORD_FILE, Context.MODE_PRIVATE)
 
         auth = FirebaseAuth.getInstance()
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("843695849584-dghopgbthu58ua4ca5i7mep5keeons6c.apps.googleusercontent.com")
+
+            //Antes:
+            //.requestIdToken("843695849584-dghopgbthu58ua4ca5i7mep5keeons6c.apps.googleusercontent.com")
+            //Ahora:
+            .requestIdToken(Constants.GOOGLE_WEB_CLIENT_ID)
+
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
@@ -71,7 +82,13 @@ class LoginScreenActivity : AppCompatActivity() {
         //Completa el campo de usuario con la variable que siempre se
         // guarda aunque se cierre la app, si no es nula.
         emailField = findViewById(R.id.user)
-        val storedUser = playerPreferencesUser.getString("Resultado", null)
+
+        //Antes:
+        //val storedUser = playerPreferencesUser.getString("Resultado", null)
+        //Ahora:
+        val storedUser = playerPreferencesUser.getString(Constants.PREFS_RESULT_KEY, null)
+
+
         if (!storedUser.isNullOrEmpty()) {
             emailField.setText(storedUser)
         }
@@ -79,7 +96,12 @@ class LoginScreenActivity : AppCompatActivity() {
         //Completa el campo de contraseña con la variable que siempre se
         // guarda aunque se cierre la app, si no es nula.
         passwordField = findViewById(R.id.password)
-        val storedPassword = playerPreferencesPassword.getString("Resultado", null)
+
+        //Antes:
+        //val storedPassword = playerPreferencesPassword.getString("Resultado", null)
+        //Ahora:
+        val storedPassword = playerPreferencesPassword.getString(Constants.PREFS_RESULT_KEY, null)
+
         if (!storedPassword.isNullOrEmpty()) {
             passwordField.setText(storedPassword)
 
@@ -105,14 +127,22 @@ class LoginScreenActivity : AppCompatActivity() {
     //Llamar a función para iniciar sesión en Google
     private fun SignIn(){
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, 9001)
+
+        //Antes:
+        //startActivityForResult(signInIntent, 9001)
+        //Ahora:
+        startActivityForResult(signInIntent, Constants.GOOGLE_SIGN_IN_REQUEST_CODE)
     }
 
     //Función de inicio de sesión en Google
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == 9001){
+        //Antes:
+        //if(requestCode == 9001){
+        //Ahora:
+        if (requestCode == Constants.GOOGLE_SIGN_IN_REQUEST_CODE) {
+
             //Intentar iniciar sesión
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             if(task.isSuccessful){
@@ -172,8 +202,13 @@ class LoginScreenActivity : AppCompatActivity() {
                     Toast.makeText(this, "Inicio de sesión exitoso. ID: " + userid, Toast.LENGTH_SHORT).show()
 
                     //Guarda valores de user y password para la próxima vez que inicie la app
-                    playerPreferencesUser.edit().putString("Resultado", email).apply()
-                    playerPreferencesPassword.edit().putString("Resultado", password).apply()
+
+                    //Antes:
+                    //playerPreferencesUser.edit().putString("Resultado", email).apply()
+                    //playerPreferencesPassword.edit().putString("Resultado", password).apply()
+                    //Ahora:
+                    playerPreferencesUser.edit().putString(Constants.PREFS_RESULT_KEY, email).apply()
+                    playerPreferencesPassword.edit().putString(Constants.PREFS_RESULT_KEY, password).apply()
 
                     //Guarda el usuario en la base de datos de Fire base
                     SaveUserInDataBase()
@@ -197,7 +232,13 @@ class LoginScreenActivity : AppCompatActivity() {
         val uid = user?.uid ?: return
 
         val database = FirebaseDatabase.getInstance().reference
-        if (emailField.text.toString() != null)
-            database.child("users").child(uid).child("username").setValue(emailField.text.toString())
+        if (emailField.text.toString() != null){
+
+            //Antes:
+            //database.child("users").child(uid).child("username").setValue(emailField.text.toString())
+            //Ahora:
+            database.child(Constants.NODE_USERS).child(uid).child(Constants.FIELD_USERNAME).setValue(emailField.text.toString())
+
+        }
     }
 }

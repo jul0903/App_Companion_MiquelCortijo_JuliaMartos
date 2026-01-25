@@ -29,17 +29,30 @@ class MapsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_maps, container, false)
 
-        val dataBaseUrl = "https://aa3-1-app-companion-default-rtdb.europe-west1.firebasedatabase.app/"
-        dataBase = FirebaseDatabase.getInstance(dataBaseUrl).getReference("messages")
+        //Antes:
+        //val dataBaseUrl = "https://aa3-1-app-companion-default-rtdb.europe-west1.firebasedatabase.app/"
+        //dataBase = FirebaseDatabase.getInstance(dataBaseUrl).getReference("messages")
+        //Ahora:
+        val dataBaseUrl = Constants.FIREBASE_DB_URL
+        dataBase = FirebaseDatabase.getInstance(dataBaseUrl).getReference(Constants.NODE_MESSAGES)
+
         dataBase.addChildEventListener(CreateChildEventListener())
 
-        val query: Query = dataBase.orderByChild("user").equalTo("Everyone")
+        //Antes:
+        //val query: Query = dataBase.orderByChild("user").equalTo("Everyone")
+        //Ahora:
+        val query: Query = dataBase.orderByChild(Constants.FIELD_USER).equalTo("Everyone")
 
         query.get()
             .addOnSuccessListener { snapshot ->
                 if(snapshot.exists()){
                     for(dataSnapshot in snapshot.children){
-                        val message = dataSnapshot.child("message").getValue(String::class.java)
+
+                        //Antes:
+                        //val message = dataSnapshot.child("message").getValue(String::class.java)
+                        //Ahora:
+                        val message = dataSnapshot.child(Constants.FIELD_MESSAGE).getValue(String::class.java)
+
                         Log.d("FireBase test", "Message: $message")
                     }
                 }else{
@@ -65,8 +78,13 @@ class MapsFragment : Fragment() {
     private fun CreateChildEventListener(): ChildEventListener {
         return object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val user = snapshot.child("user").getValue(String::class.java)
-                val message = snapshot.child("message").getValue(String::class.java)
+
+                //Antes:
+                //val user = snapshot.child("user").getValue(String::class.java)
+                //val message = snapshot.child("message").getValue(String::class.java)
+                //Ahora:
+                val user = snapshot.child(Constants.FIELD_USER).getValue(String::class.java)
+                val message = snapshot.child(Constants.FIELD_MESSAGE).getValue(String::class.java)
 
                 if (!message.isNullOrEmpty()) {
                     val currentText = text.text.toString()
@@ -75,20 +93,35 @@ class MapsFragment : Fragment() {
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val newUser = snapshot.child("user").getValue(String::class.java)
-                val newMessage = snapshot.child("message").getValue(String::class.java)
+
+                //Antes:
+                //val newUser = snapshot.child("user").getValue(String::class.java)
+                //val newMessage = snapshot.child("message").getValue(String::class.java)
+                //Ahora:
+                val newUser = snapshot.child(Constants.FIELD_USER).getValue(String::class.java)
+                val newMessage = snapshot.child(Constants.FIELD_MESSAGE).getValue(String::class.java)
 
                 val oldSnapshot = previousChildName?.let {dataBase.child(it).get().result}
-                val oldUser = oldSnapshot?.child("user")?.getValue(String::class.java)
-                val oldMessage = oldSnapshot?.child("message")?.getValue(String::class.java)
+
+                //Antes:
+                //val oldUser = oldSnapshot?.child("user")?.getValue(String::class.java)
+                //val oldMessage = oldSnapshot?.child("message")?.getValue(String::class.java)
+                //Ahora:
+                val oldUser = oldSnapshot?.child(Constants.FIELD_USER)?.getValue(String::class.java)
+                val oldMessage = oldSnapshot?.child(Constants.FIELD_MESSAGE)?.getValue(String::class.java)
 
                 Log.d("FireBase test", "Changed - Old User: $oldUser, Old Message: $oldMessage")
-                Log.d("FireBase test", "Changed - New User: $newUser, New Message: $newUser")
+                Log.d("FireBase test", "Changed - New User: $newUser, New Message: $newMessage")
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-                val user = snapshot.child("user").getValue(String::class.java)
-                val message = snapshot.child("message").getValue(String::class.java)
+
+                //Antes:
+                //val user = snapshot.child("user").getValue(String::class.java)
+                //val message = snapshot.child("message").getValue(String::class.java)
+                //Ahora:
+                val user = snapshot.child(Constants.FIELD_USER).getValue(String::class.java)
+                val message = snapshot.child(Constants.FIELD_MESSAGE).getValue(String::class.java)
 
                 Log.d("FireBase test", "Removed - User: $user, Message: $message")
             }
@@ -109,9 +142,15 @@ class MapsFragment : Fragment() {
         val text = comment.text.toString()
         val dataId = dataBase.push().key
 
+        //Antes:
+        //val messageData = mapOf(
+        //    "user" to "Everyone",
+        //    "message" to text
+        //)
+        //Ahora:
         val messageData = mapOf(
-            "user" to "Everyone",
-            "message" to text
+            Constants.FIELD_USER to "Everyone",
+            Constants.FIELD_MESSAGE to text
         )
 
         if(dataId != null){
